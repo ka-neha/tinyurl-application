@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Api.Data;
 using UrlShortener.Api.Models;
@@ -141,5 +142,14 @@ app.MapDelete("/api/shorturls/{id}", async (int id, AppDbContext db) =>
 /*** Run App */
 
 app.MapGet("/", () => "TinyURL API is running successfully!");
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Run($"http://0.0.0.0:{port}");
+var port = Environment.GetEnvironmentVariable("PORT");
+
+if (!string.IsNullOrEmpty(port))
+{
+    app.Run($"http://0.0.0.0:{port}");  // Running on Render or other cloud platforms that set PORT env variable
+}
+else
+{
+    // Running locally
+    app.Run(); // uses launchSettings.json ports (https://localhost:5001 by default)
+}
