@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngular", policy =>
     {
         policy
-            .withOrigins("http://localhost:4200", "https://tinyurl-ui-rldy.onrender.com")
+            .WithOrigins("http://localhost:4200", "https://tinyurl-ui-rldy.onrender.com")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
