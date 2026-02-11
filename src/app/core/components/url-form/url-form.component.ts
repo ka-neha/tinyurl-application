@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { interval, Subscription } from 'rxjs';
 import { UrlService } from '../../services/url.service';
 import { ShortUrl } from '../../models/short-url.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-url-form',
@@ -27,7 +28,7 @@ export class UrlFormComponent implements OnInit, OnDestroy {
   createShortUrl() {
     this.service.create(this.urlData).subscribe({
       next: (res: any) => {
-        this.shortUrl = `https://localhost:5001/${res.shortCode}`;
+        this.shortUrl = `${environment.apiUrl.replace('/api/shorturls','')}/${res.shortCode}`;
         this.urls.unshift(res);
         this.search();
       },
@@ -76,7 +77,7 @@ export class UrlFormComponent implements OnInit, OnDestroy {
   }
 
   copy(code: string) {
-    navigator.clipboard.writeText(`https://localhost:5001/${code}`);
+    navigator.clipboard.writeText(`${environment.apiUrl.replace('/api/shorturls','')}/${code}`);
   }
 
   openUrl(url: ShortUrl) {
@@ -96,6 +97,6 @@ export class UrlFormComponent implements OnInit, OnDestroy {
     // Link href will handle navigation
   }
   getShortUrl(code: string): string {
-    return `https://localhost:5001/${code}`;
+    return `${environment.apiUrl.replace('/api/shorturls','')}/${code}`;
   }
 }
