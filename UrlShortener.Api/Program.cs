@@ -139,5 +139,7 @@ app.MapDelete("/api/shorturls/{id}", async (int id, AppDbContext db) =>
 });
 
 /*** Run App */
+
+app.MapGet("/", () => "TinyURL API is running successfully!");
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Run($"http://0.0.0.0:{port}");
