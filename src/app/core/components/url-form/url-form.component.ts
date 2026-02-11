@@ -30,7 +30,6 @@ export class UrlFormComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         this.shortUrl = `${environment.apiUrl.replace('/api/shorturls','')}/${res.shortCode}`;
         this.urls.unshift(res);
-        this.search();
       },
       error: (err) => {
         console.error(err);
@@ -40,10 +39,6 @@ export class UrlFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.load();
-    // Auto-refresh every 5 seconds to show updated click counts
-    // this.refreshSubscription = interval(5000).subscribe(() => {
-    //   this.load();
-    // });
   }
 
   ngOnDestroy() {
