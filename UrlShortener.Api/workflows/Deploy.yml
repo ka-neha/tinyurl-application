@@ -47,7 +47,7 @@ jobs:
     - name: Build Angular
       run: |
         cd tinyurl-application
-        npm run build --prod
+        ng build --configuration production
 
 
     # Trigger Render deploy
