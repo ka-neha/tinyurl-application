@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tinyurl-api.onrender.com',
+  apiUrl: 'https://tinyurl-application.onrender.com',
   frontendUrl: 'https://tinyurl-ui-rldy.onrender.com'
 };

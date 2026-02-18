@@ -8,9 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 /*** Load Secret Token from Environment or AppSettings */
 var secretToken = builder.Configuration["secretToken"];
 
-/*** Database Configuration (SQLite) */
+/*** Database Configuration (SQLite persistent path fix) */
+var dbPath = Path.Combine(AppContext.BaseDirectory, "shorturls.db");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=shorturls.db"));
+    options.UseSqlite($"Data Source={dbPath}"));
 
 
 /*** Swagger */
@@ -30,6 +32,12 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+/*** IMPORTANT: Auto create database & table if missing */
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
 
 
 /*** Middleware setting */
