@@ -1,59 +1,233 @@
-# TinyurlApplication
+# TinyURL Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+A full-stack URL shortener application built using **Angular 19** (frontend) and **.NET 8 Minimal API with Entity Framework Core** (backend).
+This application allows users to:
 
-## Development server
+* Create short URLs
+* Redirect to original URLs using short code
+* Track total click count
+* Search URLs
+* Delete URLs
+* Automatically increment click count on access
 
-To start a local development server, run:
+---
+
+# Architecture
+
+```
+Angular 19 (Frontend)
+   ↓
+.NET 8 Minimal API (Backend)
+   ↓
+SQLite / Azure SQL Database -- As of now handling using SQLite
+```
+
+---
+
+# Prerequisites
+
+Tools installed:
+
+* Node.js (v18+)
+* Angular CLI (v19+)
+* .NET SDK 8
+* Git
+
+Verify installation:
+
+```bash
+node -v
+ng version
+dotnet --version
+git --version
+```
+
+---
+
+# Project Structure
+
+```
+tinyurl-application/
+│
+├── tinyurl-application/        # Angular frontend
+│
+├── UrlShortener.Api/           # .NET backend
+│   ├── Program.cs
+│   ├── Models/
+│   ├── Data/
+│   ├── Migrations/
+│   └── appsettings.json
+│
+└── README.md
+```
+
+---
+
+# Running the Backend (.NET API)
+
+Navigate to backend folder:
+
+```bash
+cd UrlShortener.Api
+```
+
+Restore dependencies:
+
+```bash
+dotnet restore
+```
+
+Apply database migrations:
+
+```bash
+dotnet ef database update
+```
+
+Run the API:
+
+```bash
+dotnet run
+```
+
+Backend will run on:
+
+```
+https://localhost:5001
+```
+
+Swagger UI:
+
+```
+https://localhost:5001/swagger
+```
+
+---
+
+# Running the Frontend (Angular)
+
+Navigate to frontend folder:
+
+```bash
+cd tinyurl-application
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run Angular app:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open browser:
 
-## Code scaffolding
+```
+http://localhost:4200
+```
+https://tinyurl-ui-rldy.onrender.com/
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+# How it Works
 
-```bash
-ng generate component component-name
+1. User enters original URL
+2. Backend generates unique short code
+3. Short URL is created and get reflected in the table:
+
+```
+https://localhost:5001/{shortCode}
+```
+https://tinyurl-application.onrender.com/
+
+4. When opened:
+
+   * Click count increments
+   * User redirected to original URL
+
+---
+
+# API Endpoints
+### Create short URL
+POST /api/shorturls
+### Get all URLs
+GET /api/shorturls
+### Redirect and increment click count
+GET /{shortCode}
+### Delete URL
+DELETE /api/shorturls/{id}
+
+---
+
+# Database
+Default: SQLite
+File: shorturls.db
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Can be switched to Azure SQL via `appsettings.json`.
+
+---
+
+# Build for Production
+
+Frontend:
 
 ```bash
-ng generate --help
+ng build --configuration production
 ```
 
-## Building
-
-To build the project run:
+Backend:
 
 ```bash
-ng build
+dotnet publish -c Release
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# CI/CD
+Supports deployment using:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* GitHub Actions
+* Render App Service
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+# Features Implemented
 
-For end-to-end (e2e) testing, run:
+* URL shortening
+* Click tracking
+* Redirect functionality
+* Search URLs
+* Delete URLs
+* REST API with Swagger
+* Angular standalone architecture
+* Entity Framework Core with migrations
 
-```bash
-ng e2e
-```
+---
+Project Structure-----------------------------
+tinyurl-application/
+│
+├── tinyurl-application/        # Angular frontend
+│   |─ src/
+│       |── app/core
+│       |    ├── services/       # API service
+│       |    |── components/     # Component handling URL creation and table display
+        |    |── models/         # interface
+│       |── environments/   # environment.ts and environment.prod.ts
+│
+├── UrlShortener.Api/           # .NET backend
+│   ├── Program.cs
+│   ├── Models/
+│   ├── Data/
+│   ├── Migrations/
+│   └── appsettings.json
+│
+└── README.md
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+# Author -- K A Neha
 
-## Additional Resources
+Developed as part of TinyURL full-stack application assignment using Angular and .NET.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
