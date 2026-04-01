@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ShortUrl } from '../models/short-url.model';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -18,6 +18,10 @@ export class UrlService {
 
   getAll(): Observable<ShortUrl[]> {
     return this.http.get<ShortUrl[]>(this.apiBase);
+  }
+  
+  getFilteredData(abc: ShortUrl[]) {
+    return abc.filter(url => !url.isPrivate);
   }
 
   search(term: string): Observable<ShortUrl[]> {

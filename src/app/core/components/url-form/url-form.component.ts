@@ -49,20 +49,24 @@ export class UrlFormComponent implements OnInit, OnDestroy {
 
   search() {
     if (!this.searchText.trim()) {
-      this.filteredUrls = this.urls;
+      this.filteredUrls = this.filteredValues;
       return;
     }
     const text = this.searchText.toLowerCase();
-    this.filteredUrls = this.urls.filter(
+    this.filteredUrls = this.filteredValues.filter(
       (url) =>
         url.originalUrl.toLowerCase().includes(text) ||
         url.shortCode.toLowerCase().includes(text),
     );
+
   }
 
+  filteredValues : ShortUrl[]= [];
   load() {
     this.service.getAll().subscribe((res) => {
       this.urls = res;
+      this.filteredValues = this.service.getFilteredData(this.urls)
+      console.log('Loaded URLs:', this.filteredValues);
       this.search(); // Reapply filter after loading
     });
   }

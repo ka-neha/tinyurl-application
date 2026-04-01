@@ -204,6 +204,14 @@ Supports deployment using:
 * REST API with Swagger
 * Angular standalone architecture
 * Entity Framework Core with migrations
+* PWA Feature Added
+
+# PWA Implementation Testing
+1) ng build --configuration production
+2) npx http-server ./dist/tinyurl-application/browser -p 8080
+3) Open url http://127.0.0.1:8080/ and check Chrome DevTools
+4) Once page loaded, click on offline mode from network tab, and reload the page
+5) It will still get loaded with cached values, instead of showing "No Internet connection error"
 
 ---
 Project Structure-----------------------------
