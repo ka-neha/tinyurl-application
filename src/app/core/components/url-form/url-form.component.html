@@ -1,0 +1,90 @@
+<div class="tinyurl-container top-align">
+        <h1 class="tinyurl-title">Tiny URL</h1>
+            <form (ngSubmit)="createShortUrl()" #urlForm="ngForm" class="tinyForm">
+                <!-- Original URL -->
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <input placeholder="Enter URL to shorten" type="url" class="form-control" name="originalUrl"
+                            [(ngModel)]="urlData.originalUrl" required #originalUrl="ngModel" />
+
+                        <div class="text-danger" *ngIf="originalUrl.invalid && originalUrl.touched">
+                            URL is required
+                        </div>
+                    </div>
+                    <!-- Private Checkbox -->
+                    <div class="col-md-4">
+                        <div class="form-check d-flex align-items-center h-100">
+                            <input class="form-check-input" type="checkbox" name="isPrivate"
+                                [(ngModel)]="urlData.isPrivate" />
+
+                            <label class=" form-check-label ms-2 mb-0 checkbox-label">
+                                IsPrivate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Submit Button -->
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                    <button type="submit" class="submitBtn" [disabled]="urlForm.invalid">
+                        Generate
+                    </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="list-container mt-5">
+      
+            <h2 class="title">Public URLS</h2>
+             <input type="text" placeholder="Search URLs..." [(ngModel)]="searchText" (input)="search()"
+                        class="form-control searchbar" />
+
+        <!-- Search -->
+        <div class="p-4">
+            <div *ngIf="filteredUrls.length === 0" class="alert alert-info">
+              No URLs found. {{ searchText ? 'Try a different search.' : 'Create one to get started!' }}
+            </div>
+            <!-- Table -->
+            <div class="row" *ngIf="filteredUrls.length > 0">
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover url-table">
+                    <tbody class="scrollable-list">
+                        <tr *ngFor="let url of filteredUrls ">
+                            <td class="original-url">
+                                <a (click)="openUrl(url)" [href]="url.originalUrl" target="_blank">
+                                    {{url.originalUrl}}
+                                </a>
+                                <br/>
+                                <sub class="short-code"> {{url.shortCode}} </sub>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" (click)="copy(url.shortCode)">
+                                    Copy
+                                </button>
+                            </td>
+
+                            <td>
+                                <span class="click-count">
+                                    {{url.totalClicks}}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn delete-btn" (click)="delete(url.id)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+</div>

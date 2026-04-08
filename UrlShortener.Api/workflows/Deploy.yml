@@ -1,0 +1,55 @@
+name: Build and Deploy TinyURL
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+
+    # Setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+
+    - name: Restore backend dependencies
+      run: dotnet restore UrlShortener.Api/UrlShortener.Api.csproj
+
+
+    - name: Build backend
+      run: dotnet build UrlShortener.Api/UrlShortener.Api.csproj --configuration Release --no-restore
+
+
+    # Setup Node
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+
+    - name: Install Angular dependencies
+      run: |
+        cd tinyurl-application
+        npm install
+
+
+    - name: Build Angular
+      run: |
+        cd tinyurl-application
+        ng build --configuration production
+
+
+    # Trigger Render deploy
+    - name: Trigger Render Deploy
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}

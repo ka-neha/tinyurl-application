@@ -1,0 +1,115 @@
+.tinyurl-title {
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2rem;
+  color: #5b21b6;
+  font-weight: 700;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #5b21b6;
+  font-weight: 500;
+  gap: 0.3rem;
+  user-select: none;
+}
+.submitBtn {
+  width: 100%;
+  padding: 0.6rem 0;
+  background: linear-gradient(90deg, #f43f5e, #a21caf);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #5b21b614;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+  margin-top: 0.2rem;
+}
+.tinyForm {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px #5b21b614;
+  padding: 1.1rem 0.8rem 0.8rem;
+
+  min-width: 500px;
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 1.1rem;
+  margin-top: 0.3rem;
+}
+.tinyurl-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 0.2rem;
+  background: none;
+  box-shadow: none;
+}
+
+.short-link {
+  color: blue;
+  font-weight: bold;
+}
+
+.click-count {
+  font-weight: bold;
+}
+
+.btn {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.copy-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.scrollable-list {
+  max-height: 300px;
+  overflow-y: auto;
+  min-width: 220px;
+  background: none;
+  border-radius: 0.8rem;
+  box-shadow: none;
+  padding-right: 2px;
+  width: 100%;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #5b21b6;
+  font-weight: 600;
+}
+.list-container {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 2.5rem;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+.searchbar {
+  width: 100%;
+  max-width: 350px;
+}
